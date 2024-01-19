@@ -14,6 +14,10 @@ public class MethodTest {
 
         printFloat(Float.valueOf(45.25f));
         printFloat(45.25f);
+
+        printDigitInt(1L);
+        printDigitInt(1000000);
+
     }
 
     public static void printArgCount(Object... args) { // 1
@@ -35,5 +39,14 @@ public class MethodTest {
     public static void printFloat(float f) {
         System.out.printf("float : %f\n", f);
     }
+
+    public static void printDigitInt(long l) {
+        System.out.printf("long : %d\n", l);
+    }
+
+    public static void printDigitInt(int l) {
+        System.out.printf("Int : %d\n", l);
+    }
+
 
 }

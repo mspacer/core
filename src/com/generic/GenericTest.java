@@ -20,6 +20,7 @@ public class GenericTest<T> {
         methodGenericCompare();
 
         methodGenericExample();
+
     }
 
     private static void methodGenericExample() {
@@ -37,6 +38,7 @@ public class GenericTest<T> {
             без параметров требует указания типа параметра перед именем конструктора */
         action = new <String>SimpleAction();
         action.<Integer>check();
+        System.out.println("____________");
     }
 
     private static void methodGenericCompare() {
@@ -49,6 +51,7 @@ public class GenericTest<T> {
         Task<Integer> task = new Task(71,"Scala");
         // task1.equalsToMark(task); // compile error: incompatible types
         System.out.println(task1.equalsToMarkAny(task));
+        System.out.println("____________");
     }
 
     private static void genericObjectEqualExample() {
@@ -78,6 +81,13 @@ public class GenericTest<T> {
         ob3.setValue(71);
         System.out.println(ob3);
         ob3.setValue(null);
+
+        GenericNum<Integer> i1 = new GenericNum<>(500);
+        GenericNum<Integer> i2 = new GenericNum<>(500);
+        System.out.print(i1.get() == i2.get());
+        System.out.print(" ");
+        System.out.println(i1.get().intValue() == i2.get().intValue());
+        System.out.println("____________");
     }
 
     private static void instantsOffExample() {
@@ -88,5 +98,16 @@ public class GenericTest<T> {
         if (post instanceof Post/*<Integer, String>*/) {
             System.out.println("is instance");
         }
+        System.out.println("____________");
+    }
+}
+
+class GenericNum<T extends Number> {
+    T number;
+    GenericNum(T t) {
+        number = t;
+    }
+    T get() {
+        return number;
     }
 }

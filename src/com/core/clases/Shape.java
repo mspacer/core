@@ -2,6 +2,9 @@ package com.core.clases;
 
 public enum Shape {
     RECTANGLE, TRIANGLE, CIRCLE;
+    Shape() {
+        System.out.println("call enum constructor");
+    }
     public double defineSquare(double ... x) {
 // here may be checking the parameters for correctness
         double area;
