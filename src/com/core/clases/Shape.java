@@ -1,6 +1,6 @@
 package com.core.clases;
 
-public enum Shape {
+public enum Shape /*extends MyEnum*/ implements Cloneable {
     RECTANGLE, TRIANGLE, CIRCLE;
     Shape() {
         System.out.println("call enum constructor");
