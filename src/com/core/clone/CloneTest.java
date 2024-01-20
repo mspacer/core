@@ -14,6 +14,7 @@ import java.util.ArrayList;
 • следует отказаться от использования объявлений final для полей объектных типов по причине невозможности
     изменения их значений при реализации клонирования
 */
+
 public class CloneTest {
     public static void main(String[] args) {
         Abiturient abiturient = new Abiturient(1);
