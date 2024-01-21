@@ -1,7 +1,15 @@
 package com.core.oop;
 
+
+import com.core.clases.LinkPackageClass;
+
 public class TestOOP {
     public static void main(String[] args) {
+
+        //Not public
+        //PackageClass packageClass = new PackageClass();
+        //new LinkPackageClass().getPackageClass().toString();
+        new LinkPackageClass().getPackageClass();
 
         A a1 = new A(0);
         A a2 = new A(0);

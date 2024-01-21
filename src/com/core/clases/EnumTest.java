@@ -14,6 +14,7 @@ package com.core.clases;
     public enum EasySingleton{
         INSTANCE;
     }
+ - enum может содержать абстратный метод. В этом случае перечисление реализуется с помощью анонимного внутреннего класса (EnumAsAnonimous).
  */
 public class EnumTest {
     public static void main(String[] args) {
