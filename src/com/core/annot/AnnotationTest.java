@@ -1,8 +1,8 @@
-package com.annot;
+package com.core.annot;
 
-import com.annot.an.Test;
-import com.annot.bean.Sample1;
-import com.annot.bean.Sample2;
+import com.core.annot.an.Test;
+import com.core.annot.bean.Sample1;
+import com.core.annot.bean.Sample2;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

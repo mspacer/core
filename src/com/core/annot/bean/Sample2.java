@@ -1,7 +1,7 @@
-package com.annot.bean;
+package com.core.annot.bean;
 
-import com.annot.an.ExceptionTest;
-import com.annot.an.ExceptionTestContainer;
+import com.core.annot.an.ExceptionTest;
+import com.core.annot.an.ExceptionTestContainer;
 
 import java.util.ArrayList;
 import java.util.List;

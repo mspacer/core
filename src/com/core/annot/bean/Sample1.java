@@ -1,6 +1,6 @@
-package com.annot.bean;
+package com.core.annot.bean;
 
-import com.annot.an.Test;
+import com.core.annot.an.Test;
 
 public class Sample1 {
 

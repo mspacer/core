@@ -1,4 +1,4 @@
-package com.mem.xls;
+package com.core.mem.xls;
 
 
 public class RowReaderException extends RuntimeException {

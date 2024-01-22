@@ -1,4 +1,4 @@
-package com.core.oop.interf;
+package com.core.interf;
 
 public interface MyInterface3 extends MyInterface2 {
 

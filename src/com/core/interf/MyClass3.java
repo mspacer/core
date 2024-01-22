@@ -1,4 +1,4 @@
-package com.core.oop.interf;
+package com.core.interf;
 
 public class MyClass3 implements MyInterface3{
     @Override

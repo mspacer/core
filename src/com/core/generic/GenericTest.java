@@ -1,4 +1,4 @@
-package com.generic;
+package com.core.generic;
 
 import com.bean.Message;
 import com.bean.Post;
