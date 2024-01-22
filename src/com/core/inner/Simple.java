@@ -8,7 +8,11 @@ public class Simple {
     private SimpleInnerPrivate simpleInnerPrivate = new SimpleInnerPrivate();
 
     public static void staticMethod() {
-        //new SimpleInnerPublic();
+        new Simple().new SimpleInnerPublic(1);
+    }
+
+    private void outerMethod() {
+        new SimpleInnerPublic(2);
     }
 
     public SimpleInnerPrivate getSimpleInnerPrivate() {
@@ -31,7 +35,8 @@ public class Simple {
             return Simple.this.var1;
         }
 
-        protected int getLocalVar() {
+        //Inner classes cannot have static declarations
+        protected /*static*/ int getLocalVar() {
             return var1;
         }
 

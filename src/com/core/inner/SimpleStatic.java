@@ -32,6 +32,14 @@ public class SimpleStatic {
         return mark;
     }
 
+    private static void createNestedStatic() {
+        new SubNested();
+    }
+
+    private void createNested() {
+        new SubNested();
+    }
+
     public static class SubNested {
         public static final int ID = 888;
         private int var1 = -2;
@@ -43,6 +51,7 @@ public class SimpleStatic {
 
         public SubNested(SimpleStatic outer) {
             this.outer = outer;
+            new SimpleStatic().group = 10;
         }
 
         protected int getVar() {

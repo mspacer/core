@@ -49,9 +49,6 @@ public class InnerTest {
         //нет доступа к приватном внутреннему классу
         //System.out.println(new Simple().getSimpleInnerPrivate().toString());
 
-        System.out.println(Simple.InnerEnum.INNER_ENUM.value);
-        Arrays.stream(EnumAsAnonimous.values()).forEach(s -> System.out.println(s.computeSquare()));
-
     }
 
     private static void testHeirInner() {
