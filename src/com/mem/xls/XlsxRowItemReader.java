@@ -1,4 +1,4 @@
-package com.core.mem.xls;
+package com.mem.xls;
 
 import java.io.IOException;
 import java.io.InputStream;

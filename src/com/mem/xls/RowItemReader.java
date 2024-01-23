@@ -1,4 +1,4 @@
-package com.core.mem.xls;
+package com.mem.xls;
 
 public interface RowItemReader<T> {
 	boolean hasNext();

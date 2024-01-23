@@ -1,8 +1,13 @@
-package com.core.mem;
+package com.mem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ - На момент старта java приложения далеко не все классы оказываются загруженными в JVM. Если в вашем коде нет обращения к классу MyClass,
+    то тот, кто отвечает за загрузку классов в JVM, а им является ClassLoader, никогда его туда и не загрузит
+
+ */
 public class MemoryTest {
     public static void main(String[] args) {
         List<String> testStr = new ArrayList<String>();

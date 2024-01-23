@@ -1,7 +1,7 @@
-package com.core.mem;
+package com.mem;
 
-import com.core.mem.xls.RowReaderException;
-import com.core.mem.xls.XlsxRowItemReader;
+import com.mem.xls.RowReaderException;
+import com.mem.xls.XlsxRowItemReader;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;

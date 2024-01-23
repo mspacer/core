@@ -7,6 +7,10 @@ import com.core.annot.bean.Sample2;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+
+ - пример обработки аннотаци при реализазии Proxy - BankingMain
+ */
 public class AnnotationTest {
 
     public static void main(String[] args) {
