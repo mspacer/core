@@ -1,6 +1,7 @@
 package com.core.interf;
 
 public interface MyInterface2 {
+    int ID = 7;
     /*final*/ String name();
 
     // With Java 8

@@ -1,5 +1,7 @@
 package com.core.clases;
 
+import com.bean.ShapeEnum;
+
 /**
  - перечисление - public final class, наследющий abstract class Enum
    объявленные члены - public static final экземпляры типа
@@ -18,16 +20,18 @@ package com.core.clases;
  */
 public class EnumTest {
     public static void main(String[] args) {
-        Enum<Shape> sh = Shape.CIRCLE;
+        ShapeEnum sh = ShapeEnum.CIRCLE;
         System.out.println(sh.name());
-        sh = Shape.valueOf("TRIANGLE");
-        sh = Shape.valueOf( Shape.class,"TRIANGLE");
+        sh = ShapeEnum.valueOf("TRIANGLE");
+        sh = ShapeEnum.valueOf( ShapeEnum.class,"TRIANGLE");
 
+        sh = ShapeEnum.valueOf("TRIANGLE");
+        sh = ShapeEnum.valueOf( ShapeEnum.class,"TRIANGLE");
         System.out.println(sh.name());
         System.out.println(sh.ordinal());
 
-        Shape sh1 = Shape.CIRCLE;
-        Shape sh2 = Shape.CIRCLE;
+        ShapeEnum sh1 = ShapeEnum.CIRCLE;
+        ShapeEnum sh2 = ShapeEnum.CIRCLE;
         System.out.println(sh1 == sh2);
         System.out.println(sh1.compareTo(sh2));
 

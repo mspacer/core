@@ -1,8 +1,8 @@
-package com.core.clases;
+package com.bean;
 
-public enum Shape /*extends MyEnum*/ implements Cloneable {
+public enum ShapeEnum /*extends MyEnum*/ implements Cloneable {
     RECTANGLE, TRIANGLE, CIRCLE;
-    Shape() {
+    ShapeEnum() {
         System.out.println("call enum constructor");
     }
     public double defineSquare(double ... x) {

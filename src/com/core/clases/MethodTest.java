@@ -9,7 +9,7 @@ public class MethodTest {
         printArgCount(i, i, i);
         printArgCount(i, 4, 42);
         printArgCount(i); // call method 1
-        //printArgCount(42, 7);
+        //printArgCount(42, 7); //TODO Непонятная ошибка
         // printArgCount(); //compile error: overload uncertainty!
 
         printFloat(Float.valueOf(45.25f));
@@ -38,6 +38,10 @@ public class MethodTest {
 
     public static void printFloat(float f) {
         System.out.printf("float : %f\n", f);
+    }
+
+    public static void printDigitInt(Object l) {
+        System.out.printf("Int : %d\n", l);
     }
 
     public static void printDigitInt(long l) {

@@ -5,12 +5,17 @@ import com.core.clases.LinkPackageClass;
 
 public class TestOOP {
     public static void main(String[] args) {
+        equalObjects();
 
         //Not public
         //PackageClass packageClass = new PackageClass();
         //new LinkPackageClass().getPackageClass().toString();
         new LinkPackageClass().getPackageClass();
 
+    }
+
+    private static void equalObjects() {
+        System.out.println("equalObjects");
         A a1 = new A(0);
         A a2 = new A(0);
         System.out.print(a1 == a2);
@@ -27,6 +32,7 @@ public class TestOOP {
         // поэтому в классе B есть две переменные a
         System.out.println("a4.a = " + a4.a);
 
+        System.out.println("________________");
     }
 
 }
@@ -62,3 +68,4 @@ class B extends A{
         return super.a;
     }
 }
+
