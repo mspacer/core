@@ -1,6 +1,6 @@
 package com.core.interf;
 
-public class MyClass2 implements MyInterface2{
+public class MyClass2 implements MyInterface2 {
     @Override
     public String name() {
         return "Hello from " + this.getClass().getName();
@@ -12,5 +12,6 @@ public class MyClass2 implements MyInterface2{
         //foo();
         MyInterface2.foo();
         //MyInterface2.foo2();
+
     }
 }

@@ -100,6 +100,7 @@ public class GenericTest<T> {
         }
         System.out.println("____________");
     }
+
 }
 
 class GenericNum<T extends Number> {
@@ -111,3 +112,5 @@ class GenericNum<T extends Number> {
         return number;
     }
 }
+
+

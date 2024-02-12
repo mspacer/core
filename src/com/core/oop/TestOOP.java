@@ -3,6 +3,8 @@ package com.core.oop;
 
 import com.core.clases.LinkPackageClass;
 
+import java.util.List;
+
 public class TestOOP {
     public static void main(String[] args) {
         equalObjects();
@@ -68,4 +70,3 @@ class B extends A{
         return super.a;
     }
 }
-

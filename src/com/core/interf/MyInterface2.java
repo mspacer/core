@@ -4,10 +4,17 @@ public interface MyInterface2 {
     int ID = 7;
     /*final*/ String name();
 
-    // With Java 8
+    // with Java 8
     default String defName() {
+        return "MyInterface2 default name";
+    }
+
+    // with java 9
+/*
+    private String defName2() {
         return "default name";
     }
+*/
 
     default String firstName() {
         return "firstName";

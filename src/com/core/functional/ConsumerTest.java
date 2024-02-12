@@ -1,4 +1,4 @@
-package com.core.interf;
+package com.core.functional;
 
 import java.util.ArrayList;
 import java.util.Arrays;

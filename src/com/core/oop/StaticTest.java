@@ -26,7 +26,7 @@ import com.core.interf.MyInterface2;
 */
 
 public class StaticTest {
-    public static /*final*/ StaticTest instance = new StaticTest();
+    public static final StaticTest instance = new StaticTest();
     public static final int A = 5;
     public static final Boolean Bl = true;
     public static int B = 7;

@@ -1,6 +1,6 @@
 package com.core.interf;
 
-public class MyClass implements MyInterface {
+public class MyClass implements MyInterface  {
     @Override
     public int myBirthday() {
         return 1973;

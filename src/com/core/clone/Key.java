@@ -1,6 +1,6 @@
 package com.core.clone;
 
-abstract /*public*/ class Key /*implements Cloneable*/ {
+abstract /*public*/ class Key implements Cloneable {
     private Integer id;
     private Address address;
 
@@ -24,14 +24,12 @@ abstract /*public*/ class Key /*implements Cloneable*/ {
         this.address = address;
     }
 
-/*
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Key clone() throws CloneNotSupportedException {
         Key copy = (Key)super.clone();
         copy.address = address.clone();
         return copy;
     }
-*/
 
     @Override
     public String toString() {

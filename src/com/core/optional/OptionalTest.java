@@ -3,6 +3,7 @@ package com.core.optional;
 import com.bean.Order;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +30,8 @@ public class OptionalTest {
         Optional<Order> optionalOrder3 = findById2(orders, 2);
         optionalOrder3.ifPresent(System.out::println);
 
+        testOfNull(null);
+
        // OptionalInt
     }
 
@@ -49,6 +52,23 @@ public class OptionalTest {
                 .findAny();
     }
 
+    public static void testOfNull(List<String> list) {
+        Optional<List<String>> listOptional = Optional.of(Optional.ofNullable(list).orElse(Collections.emptyList()));
+        List<String> listOptional2 = Optional.ofNullable(list).orElse(null);
+        System.out.println(listOptional.get().size());
+        System.out.println(listOptional2);
+
+        MyOptional myOptional = new MyOptional(null);
+
+        //of относится к myOptional
+        List<String> listOptional3= Optional.of(myOptional).map(MyOptional::getMyListObject).map(MyListObject::getList).orElse(null);
+        System.out.println(listOptional3);
+
+        MyListObject myListObject = new MyListObject(null);
+        //обязательно ofNullable, иначе NullPointerException
+        List<String> listOptional4= Optional.ofNullable(myListObject.getList()).orElse(Collections.emptyList());
+        System.out.println(listOptional4);
+    }
 /*
     public static OptionalInt findById3(List<Order> orders, int id) {
         return orders.stream()
@@ -60,4 +80,28 @@ public class OptionalTest {
     }
 */
 
+}
+
+class MyOptional {
+    MyListObject myListObject;
+
+    public MyOptional(MyListObject myListObject) {
+        this.myListObject = myListObject;
+    }
+
+    public MyListObject getMyListObject() {
+        return myListObject;
+    }
+}
+
+class MyListObject {
+    List<String> list;
+
+    public MyListObject(List<String> list) {
+        this.list = list;
+    }
+
+    public List<String> getList() {
+        return list;
+    }
 }
