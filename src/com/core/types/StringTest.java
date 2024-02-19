@@ -1,6 +1,8 @@
 package com.core.types;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.StringJoiner;
 
 public class StringTest {
@@ -83,12 +85,34 @@ public class StringTest {
 
         str9.codePoints()
                 .filter(o -> o != '-')
-                .forEach(o -> System.out.print((char)o));
+                .forEach(o -> System.out.print((char)o + "/" + o + "/") );
         System.out.println("");
 
         StringJoiner joiner = new StringJoiner(":", "<<", ">>");
         String result = joiner.add("blanc").add("rouge").add("blanc").toString();
         System.out.println(result);
+
+        String str10 = "  ;1dfsf dfdfd df;   ";
+        //java 11
+        //System.out.println("strip: '" + str10.strip() + "'");
+        str10 = str10.trim();
+        System.out.println("strip: '" + str10 + "'");
+
+        char[] value = {'a', 's', 'd', 'f', 'g'};
+        str10.getChars(1, 3, value, 2);
+        System.out.println("value: '" + new String(value) + "'");
+
+        String s = new String("3");
+        System.out.println(1 + 2 + s + 4 + 5);
+
+        String[] strings = new String[]{"a", "b", "c"};
+        int k = 0;
+        for (String element : strings) {
+            strings[k].concat(String.valueOf(k));
+            ++k;
+        }
+        System.out.print(Arrays.toString(strings));
+        System.out.println("");
 
     }
 
