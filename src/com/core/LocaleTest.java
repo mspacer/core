@@ -25,5 +25,8 @@ public class LocaleTest {
             System.out.println("group1.key1000 not found");
         }
 
+        ResourceBundle database = ResourceBundle.getBundle("database");
+        System.out.println(database.getString("driver.name"));
+
     }
 }
