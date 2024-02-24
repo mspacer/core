@@ -57,10 +57,14 @@ public class StringTest {
         String str1 = "TopJava"; // string pool
         String str2 = "TopJava";
         String str3 = new String("TopJava"); // heap
-        String str4 = new String("TopJava");
         System.out.println("Строка 1 равна строке 2? " + (str1 == str2));
         System.out.println("Строка 2 равна строке 3? " + (str2 == str3));
         System.out.println("Строка 2 equal строке 3? " + (str2.equals(str3)));
+
+        String str4 = new String("На русском");
+        String str4_1 = new String("На русском другой");
+        System.out.println("Строка 4 equal строке 4_1? " + (str4.equals(str4_1)));
+        System.out.println("Строка 4 compareTo строке 4_1? " + (str4.compareTo(str4_1)));
 
         System.out.println("--------interning---------");
         String str5 = (new String("TopJava")).intern();

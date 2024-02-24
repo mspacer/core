@@ -1,5 +1,7 @@
 package com.core.filestream;
 
+import com.bean.Person;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ import java.util.Arrays;
  * <p>ObjectInputStream (внутренние приватные BlockDataInputStream, PeekInputStream)</p>
  * <p>FilterInputStream (наследники BufferedInputStream, DataInputStream, PushbackInputStream) </p>
  * <p>
- * FileInputStream. Конструктор принимает File либо String как файл. Путь должен существовать. Файл создается. Методы:
+ * FileInputStream. Конструктор принимает File либо String как файл. Файл должен существовать. Методы:
  * <p>available() - кол-во доступных для считывания байт.</p>
  * <p>read() - один байт.</p>
  * <p>read(byte b[]) - массив байтов.</p>
@@ -29,20 +31,20 @@ import java.util.Arrays;
  * <p>PushbackInputStream. Конструктор принимает InputStream. Имеет внутренний буфер (размер задается конструктором),
  * в который можно вставить символы методами unread(int), unread(bite[] buf). Последующим read будут считываться сперва эти символы. </p>
  * <p>PipedInputStream. Работает в паре с PipedOutputStream. Метод connect(PipedOutputStream src) устанавливает связь с источником</p>
+ * <p>ObjectInputStream. Конструктор принимает InputStream. Считывает примитиврные типы, стоки utf, серелезуемые объекты.</p>
  */
 public class InputStreamTest {
     public static void main(String[] args) {
         fileInputStream();
         try {
-/*
             fileInputStream2();
             bufferedInputStream();
             fileDataInputStream();
             fileDataInputStream2();
-*/
             pushbackInputStream();
-//            pipedOutputStream();
-        } catch (IOException ioe) {
+            pipedInputStream();
+            objectInputStream();
+        } catch (IOException | ClassNotFoundException ioe) {
             ioe.printStackTrace();
         }
     }
@@ -179,7 +181,7 @@ public class InputStreamTest {
         System.out.println("available after unread2: " + input.available());
     }
 
-    private static void pipedOutputStream() throws IOException {
+    private static void pipedInputStream() throws IOException {
         System.out.println("-----pipedOutputStream-------");
         PipedOutputStream out = new PipedOutputStream();
         PipedInputStream in = new PipedInputStream();
@@ -199,6 +201,25 @@ public class InputStreamTest {
         while (in.available() > 0) {
             System.out.println(in.read());
         }
+    }
+
+    private static void objectInputStream() throws IOException, ClassNotFoundException {
+        System.out.println("-----objectInputStream-------");
+        File f = new File("data/objout.txt");
+        ObjectInputStream ios = new ObjectInputStream(new FileInputStream(f));
+
+        System.out.println(ios.available());
+        //byte buf[] = new byte[10000];
+        //ios.readFully(buf);
+        System.out.println(ios.readDouble());
+        System.out.println(ios.readUTF());
+        System.out.println(ios.readUTF());
+
+        Person tom = (Person)ios.readObject();
+        System.out.println(tom);
+
+        ios.close();
+
     }
 
 }
