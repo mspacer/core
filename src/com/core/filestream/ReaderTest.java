@@ -2,13 +2,27 @@ package com.core.filestream;
 
 import java.io.*;
 
+/**
+ * <p>Абстрактный класс Reader. Методы для чтения synchronized.
+ * <p>InputStreamReader (наследник FileReader), BufferedReader, PipedReader, StringReader, CharArrayReader,
+ * abstract FilterReader (наследник PushbackReader)
+ * <p></p>
+ * <p>InputStreamReader. Конструктор принимает InputStream, Charset,  string charsetName.
+ * <p>FileReader. Принимает File или fileName. Все методы из InputStreamReader. Кодировка utf-8.
+ * <p>BufferedReader. Принимает Reader и размер буфера. Дополнительные методы
+ * <p> lines() возвращает Stream<String>, readLine() возвращают строку.
+ * <p>PipedReader работает аналогично PipedInputStream|PipedOutputStream</p>
+ * <p>StringReader. Читает из входящей строки. Поддерживает mark|reset</p>
+ * <p>CharArrayReader. Подобен StringReader. Внутренний буфер - массив типа char (длина по умолчанию 32).
+ * <p>PushbackReader. Подобен StringReader. Внутренний буфер - массив типа char (длина по умолчанию 32).
+ */
 public class ReaderTest {
     public static void main(String[] args) {
         try {
             inputStreamReader();
-            bufferedReader();
             fileReader();
             fileReader2();
+            bufferedReader();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -57,14 +71,6 @@ public class ReaderTest {
         isr.close();
     }
 
-    private static void bufferedReader() throws IOException {
-        System.out.println("------BufferedReader-----------");
-        InputStreamReader f = new InputStreamReader(new FileInputStream("data/out2.txt"), "cp1251");
-        BufferedReader bf = new BufferedReader(f);
-        bf.lines().forEach(System.out::println);
-        bf.close();
-    }
-
     private static void fileReader() throws IOException {
         System.out.println("-----fileReader-------");
         FileReader f = new FileReader("data/out3.txt");
@@ -101,5 +107,22 @@ public class ReaderTest {
         }
         f.close();
     }
+
+    private static void bufferedReader() throws IOException {
+        System.out.println("------BufferedReader-----------");
+        InputStreamReader f = new InputStreamReader(new FileInputStream("data/out2.txt"), "cp1251");
+        BufferedReader bf = new BufferedReader(f);
+
+        //bf.lines().forEach(System.out::println);
+
+        String line;
+        int i = 1;
+        while ((line = bf.readLine()) != null) {
+            System.out.println((i++) + ": " + line);
+        }
+
+        bf.close();
+    }
+
 
 }

@@ -3,19 +3,24 @@ package com.core.filestream;
 import java.io.*;
 
 /**
- * <p>абстрактный класс Writer. Дополнительные методы append: (char), (CharSequence)</p>
- * <p></p>
+ * <p>абстрактный класс Writer. Дополнительные методы append: (char), (CharSequence). Методы для записи synchronized.</p>
  * <p>OutputStreamWriter (наследник FileWriter), BufferedWriter, abstract FilterWriter, PrintWriter, PipedWriter, StringWriter,
  * CharArrayWriter</p>
  * <p></p>
  * <p>OutputStreamWriter. Конструктор принимает OutputStream и charset (строка/класс).
  * Является мостом между строковым потоком и потоком байтов.</p>
  * <p>FileWriter удобная оболочка для File. UTF-8 дефолтная кодировка.
+ * <p>BufferedWriter. Принимает Witer и размер буфера. Дополнительный метод newLine()</p>
+ * <p></p>
  * <p>PrintWriter. Принимает FileOutputStream, File, String filename, encoding</p>
  * <p>дополнительные методы print, println для примитивных типов </p>
  * <p>PrintStream format(String format, Object ... args) </p>
+ * <p>PrintStream printf(...) (вызывает format)</p>
+ * <p></p>
  * <p>PipedWriter работает аналогично PipedInputStream|PipedOutputStream</p>
- * <p>StringWriter. Создает внутренний буфер типа StringBuffer. Метод getBuffer() его возвращает</p>
+ * <p>StringWriter. Создает внутренний буфер типа StringBuffer, в который происходит запись. Метод getBuffer() его возвращает</p>
+ * <p>CharArrayWriter. Подобен StringWriter. Внутренний буфер - массив типа char (длина по умолчанию 32).
+ * Метод toCharArray() его возвращает</p>
  */
 public class WriterTest {
     public static void main(String[] args) {
@@ -64,6 +69,7 @@ public class WriterTest {
         bw.write(s);
         bw.append('?').append(' ');
 
+        bw.newLine();
         StringBuilder sb = new StringBuilder();
         sb.append("стринг билдер");
 
@@ -79,7 +85,8 @@ public class WriterTest {
         prs.println(11);
         prs.println("строка");
         prs.format("This is a %s %d program", "моя", 1)
-        .format(" на java.");
+        .format(" на java.")
+        .printf(" Java %.2g%n", 1.8);
 
         prs.close();
     }

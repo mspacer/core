@@ -11,6 +11,7 @@ import java.util.Arrays;
  * <p>Классы - FileInputStream, PipedInputStream, ByteArrayInputStream, PushbackInputStream,</p>
  * <p>ObjectInputStream (внутренние приватные BlockDataInputStream, PeekInputStream)</p>
  * <p>FilterInputStream (наследники BufferedInputStream, DataInputStream, PushbackInputStream) </p>
+ * <p></p>
  * <p>
  * FileInputStream. Конструктор принимает File либо String как файл. Файл должен существовать. Методы:
  * <p>available() - кол-во доступных для считывания байт.</p>
@@ -32,6 +33,15 @@ import java.util.Arrays;
  * в который можно вставить символы методами unread(int), unread(bite[] buf). Последующим read будут считываться сперва эти символы. </p>
  * <p>PipedInputStream. Работает в паре с PipedOutputStream. Метод connect(PipedOutputStream src) устанавливает связь с источником</p>
  * <p>ObjectInputStream. Конструктор принимает InputStream. Считывает примитиврные типы, стоки utf, серелезуемые объекты.</p>
+ * <p></p>
+ * <p>Начиная с Java 7 возможно автоматическое закрытие потоков ввода/вывода без явного вызова метода close() и блока finally.
+ * В список интерфейсов, реализуемых практически всеми классами потоков, добавлен интерфейс AutoCloseable</p>
+ * <pre>
+ *     try(iostream1; iostream2;…; iostreamN) {
+ *         //code
+ *     }
+ *     </pre>
+ *
  */
 public class InputStreamTest {
     public static void main(String[] args) {

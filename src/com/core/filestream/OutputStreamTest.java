@@ -29,6 +29,7 @@ import java.io.*;
  * <p>PrintStream. Запись любых простых типов, включая строки в заданной кодировке. Фактически запись осуществляется в
  * текстовом формате BufferedWriter</p>
  * <p>DataOutputStream. Конструктор принимает OutputStream. Запись примитивных типов, строки в формате UTF. </p>
+ * <p></p>
  * <p>ObjectOutputStream. Конструктор принимает OutputStream. Записывает примитиврные типы, стоки utf, серелезуемые объекты.</p>
  */
 public class OutputStreamTest {
@@ -105,12 +106,12 @@ public class OutputStreamTest {
     private static void dataOutputStream() throws IOException {
         File f = new File("data/dataout.txt");
         f.delete();
-        Person tom = new Person("Tom", 34, 1.68, false);
+        Person tom = new Person("Tom", 34, 1.68, false, "");
         DataOutputStream dos = new DataOutputStream(new FileOutputStream(f));
-        dos.writeUTF(tom.name);
-        dos.writeInt(tom.age);
-        dos.writeDouble(tom.height);
-        dos.writeBoolean(tom.married);
+        dos.writeUTF(tom.getName());
+        dos.writeInt(tom.getAge());
+        dos.writeDouble(tom.getHeight());
+        dos.writeBoolean(tom.isMarried());
         dos.close();
     }
 
@@ -132,7 +133,7 @@ public class OutputStreamTest {
         oos.writeUTF("utf строка");
         oos.writeUTF("utf вторая строка");
 
-        Person tom = new Person("Tom", 34, 1.68, false);
+        Person tom = new Person("Tom", 34, 1.68, false, "");
         oos.writeObject(tom);
 
         oos.close();
