@@ -3,7 +3,7 @@ package com.core.filestream;
 import java.io.*;
 
 /**
- * <p>Абстрактный класс Reader. Методы для чтения synchronized.
+ * <p>Абстрактный класс Reader. Интерфейс Readable. Методы для чтения synchronized.
  * <p>InputStreamReader (наследник FileReader), BufferedReader, PipedReader, StringReader, CharArrayReader,
  * abstract FilterReader (наследник PushbackReader)
  * <p></p>

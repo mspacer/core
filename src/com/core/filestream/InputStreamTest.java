@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
- * <p>Интерфейс - InputStream. </p>
+ * <p> abstract class InputStream. </p>
  * <p>Классы - FileInputStream, PipedInputStream, ByteArrayInputStream, PushbackInputStream,</p>
  * <p>ObjectInputStream (внутренние приватные BlockDataInputStream, PeekInputStream)</p>
  * <p>FilterInputStream (наследники BufferedInputStream, DataInputStream, PushbackInputStream) </p>

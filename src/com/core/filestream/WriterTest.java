@@ -76,6 +76,7 @@ public class WriterTest {
         bw.append(sb); //writer.append(CharSequence)
 
         bw.close();
+
     }
 
     private static void printWriter() throws IOException {

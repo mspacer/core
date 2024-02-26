@@ -13,6 +13,7 @@ import java.util.StringJoiner;
  * <p>Десериализация происходит следующим образом: под объект выделяется память, после чего его поля заполняются значениями из потока.
  * Конструктор сериализуемого класса при этом не вызывается, но вызываются все конструкторы суперклассов в заданной
  * последовательности до класса, имплементирующего Serializable.</p>
+ * <p>Базовый класс должен имете конструктор по умолчанию, либо быть сереализуемым
  * <p>Если полем класса является ссылка на другой тип, то необходимо, чтобы агрегированный тип также реализовывал
  * интерфейс Serializable, иначе при попытке сериализации будет сгенерировано исключение NotSerializableException</p>
  * <p>При сериализации объекта класса, реализующего интерфейс Serializable, учитывается порядок объявления полей в классе.
@@ -26,12 +27,18 @@ import java.util.StringJoiner;
  * При десериализации значение этого поля сравнивается с имеющимся у класса в виртуальной машине. Если значения не совпадают,
  * инициируется исключение java.io.InvalidClassException. Соответственно, при любом изме нении в первую очередь полей класса
  * значение поля serialVersionUID должнобыть изменено программистом или генератором.</p>
+ * <p></p>
+ * <p>Если в обьекте, что серелезуется обьявлены методы writeObject|readObject, то они будут вызваны при серелизации/десерелизации</p>
+ * <p>Для сериализации singleton-обьекта необходимо обьявить readResolve() метод и взвращать текущей инстантс.
+ * Это предотвратит создание копий.</p>
+ * <p>writeReplace() заменяет серелезуемый обьект, возвращаемым методом обьект. </p>
  */
 
 public class SerializeTest {
     public static void main(String[] args) {
         try {
-            objectOutputStream();
+            serializeObject();
+            serializeSingletonObject();
             externalizable();
             xmlCodec();
         } catch (IOException | ClassNotFoundException e) {
@@ -39,19 +46,48 @@ public class SerializeTest {
         }
     }
 
-    private static void objectOutputStream() throws IOException {
-        System.out.println("--------objectOutputStream-----------");
+    private static void serializeObject() throws IOException {
+        System.out.println("--------serializeObject-----------");
         File f = new File("data/serialize.txt");
         f.delete();
 
+        Student student = new Student("Janka", 555777, "VKL_1410");
+        System.out.println(student.hashCode());
+        System.out.println(student.addr.hashCode());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
-            Student student = new Student("Janka", 555777, "VKL_1410");
             oos.writeObject(student);
         }
 
+        Student desStudent = null;
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("data/serialize.txt"))) {
-            Student student = (Student) input.readObject();
-            System.out.println(student);
+            desStudent = (Student) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(desStudent);
+        System.out.println(desStudent.hashCode());
+        System.out.println(desStudent.addr.hashCode());
+        System.out.println();
+    }
+
+    private static void serializeSingletonObject() throws IOException {
+        System.out.println("--------serializeSingletonObject-----------");
+        File f = new File("data/serializeSingleton.txt");
+        f.delete();
+
+        Singleton sn1 = Singleton.getInstance();
+        sn1.setValue(1);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+            oos.writeObject(sn1);
+        }
+
+        sn1.setValue(10);
+        System.out.println(sn1);
+
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("data/serializeSingleton.txt"))) {
+            Singleton sn2 = (Singleton) input.readObject();
+            System.out.println(sn2);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -104,18 +140,42 @@ public class SerializeTest {
 
 }
 
-class Student implements Serializable {
+class Man /*implements Serializable*/ {
+    protected int code;
+
+    public Man() {
+    }
+
+    public Man(int code) {
+        this.code = code;
+    }
+}
+
+class Student extends Man implements Serializable {
     static String faculty = "MMF";
     private String name;
     private int id;
-    private transient String password;
-    private Address addr = new Address("Kiev");
+    private /*transient*/ String password;
+    public Address addr = new Address("Kiev");
     private static final long serialVersionUID = 3L;
 
     public Student(String name, int id, String password) {
+        super(10);
         this.name = name;
         this.id = id;
         this.password = password;
+    }
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        System.out.println("Student.writeObject call");
+        this.password = "xyz" + password;
+        oos.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        System.out.println("Student.readObject call");
+        ois.defaultReadObject();
+        this.password = password.substring(3);
     }
 
     @Override
@@ -123,6 +183,7 @@ class Student implements Serializable {
         return new StringJoiner(", ", Student.class.getSimpleName() + "[", "]")
                 .add("name='" + name + "'").add("id=" + id)
                 .add("password='" + password + "'")
+                .add("code='" + code + "'")
                 .add("address='" + addr + "'")
                 .toString();
     }
@@ -189,5 +250,46 @@ class Car implements Externalizable {
     public void readExternal(ObjectInput in) throws IOException {
         this.model = in.readUTF();
         this.code = in.readInt();
+    }
+}
+
+class Singleton implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private static Singleton INSTANCE = new Singleton();
+
+    private int value;
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        return INSTANCE;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    private Object writeReplace() throws ObjectStreamException {
+        System.out.println("call writeReplace");
+        Singleton INSTANCE_2 = new Singleton();
+        INSTANCE_2.value = 11;
+        return INSTANCE_2;
+    }
+
+/*
+    private Object readResolve() throws ObjectStreamException {
+        System.out.println("call readResolve");
+        return INSTANCE;
+    }
+*/
+
+    @Override
+    public String toString() {
+        return "Singleton{" +
+                "value=" + value +
+                ", hashCode=" + this.hashCode() +
+                '}';
     }
 }

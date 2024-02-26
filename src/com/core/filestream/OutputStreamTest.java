@@ -5,7 +5,7 @@ import com.bean.Person;
 import java.io.*;
 
 /**
- * <p>Интерфейс - OutputStream. </p>
+ * <p>abstract class OutputStream. </p>
  * <p>Классы - FileOutputStream, PipedOutputStream, ByteArrayOutputStream, ObjectOutputStream,</p>
  * <p>FilterOutputStream (наследники PrintStream, BufferedOutputStream, DataOutputStream) </p>
  <p>
