@@ -10,6 +10,12 @@ import java.util.List;
    List<? super A> list;
    MyClass<? super A> myclass;
  - super допускается только в объявлении параметизированных методов
+ Параметризация List<? super A> утверждает, что параметр метода или возвращаемое значение может получить список типа A или любого из его
+ суперклассов, в то же время разрешает добавлять туда экземпляры класса A и любых его подклассов
+
+ Eсли параметр метода List<? extends A>, то в метод можно будет передавать коллекции, параметризованные любым допустимым типом,
+ а именно классом A и любым его подклассом, что невозможно при записи без анонимного символа.
+ Но в методе нельзя будет добавить к коллекции новый элемент, пусть даже и допустимого типа, так как компилятору неизвестен заранее тип параметризации списка.
  */
 public class WildcardTest {
     public static void main(String[] args) {
@@ -38,7 +44,12 @@ public class WildcardTest {
         superTest(aList);
         List<BfromA> bfromAList = new ArrayList<>();
         bfromAList.add(bfromA);
+        bfromAList.add(b1fromBfromA);
         superTest(bfromAList);
+
+        extendsTestList(aList);
+        extendsTestList(bfromAList);
+        extendsTestList(cfromBfromAList);
 
         GenericNum2<Integer> g1 = new GenericNum2<>(Integer.valueOf(56));
         testSuper(g1);
@@ -50,11 +61,30 @@ public class WildcardTest {
 
     private static <T extends A> void extendsTest(T a) {}
 
-    private static void extendsTest(List<? extends A> a) {}
+    private static void extendsTestList(List<? extends A> a) {
+        /* нельзя добавить к коллекции новый элемент, пусть даже
+        и допустимого типа, так как компилятору неизвестен заранее тип параметризации списка.
+        Поэтому добавление к спискам, параметризованным метасимволом с применением extends, запрещено всегда*/
+        //a.add(new A());
+        //a.add(new BfromA());
+
+        //в списке все элементы имеют базовый тип А
+        a.get(0).methodFromA();
+    }
 
     //private static <T super BfromA> void superTest(T a) {}
 
-    private static void superTest(List<? super BfromA> a) {}
+    private static void superTest(List<? super BfromA> a) {
+        /* В этом случае к списку, возвращенному методом, можно будет добавлять
+        экземпляры класса BfromA и его подклассов. */
+        //a.add(new A()); - error
+        a.add(new B1fromBfromA());
+        a.add(new BfromA());
+
+        //поскольку в метод могут передаваться список с предками BfromA и какой именно предок неизвестно, доступ есть
+        //только к методам класса Object.
+        a.get(0).getClass();
+    }
 
     private static  void testSuper(GenericNum2<? super Integer> g) {
         System.out.println("--testSuper--");
@@ -64,9 +94,15 @@ public class WildcardTest {
 
 }
 
-class A{}
-class BfromA extends A{}
-class CfromBfromA extends BfromA{}
+class A{
+    public void methodFromA() {};
+}
+class BfromA extends A{
+    public void methodFromB() {};
+}
+class CfromBfromA extends BfromA{
+    public void methodFromC() {};
+}
 
 class B1fromBfromA extends BfromA{}
 
