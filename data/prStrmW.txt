@@ -1,0 +1,3 @@
+1011
+строка
+This is a моя 1 program на java.Java 1,8
