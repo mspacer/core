@@ -36,7 +36,12 @@ import static com.core.collection.list.SetTest.Country.*;
  *
  * <p> EnumSet наследует AbstractSet. Абстрактный. Экземпляр создается статическими методами of(...).
  * Класс специально реализован для работы с типами enum. Все элементы такой коллекции должны принадлежать единственному типу enum
- * <p>
+ * <p> Методы
+ * <p> EnumSet<E> noneOf(Class<E> elemType) cоздает пустое множество нумерованных констант с указанным типом элемента
+ * <p> allOf(Class<E> elementType) создает множество нумерованных констант, содержащее все элементы указанного типа.
+ * <p> of(E first, E… rest) создает множество, первоначально содержащее ука занные элементы.
+ * <p> complementOf(EnumSet<E> s) создается множество, содержащее все элементы, которые отсутствуют в указанном множестве.
+ * <p> range(E from, E to) создает множество из элементов, содержащихся в диапазоне, определенном двумя элементами.
  * <p>
  */
 public class SetTest {
@@ -54,6 +59,18 @@ public class SetTest {
         System.out.println("4) " + treeSet.subSet("5Y", "8Y"));
         System.out.println("5) " + treeSet.subSet("5Y", false, "8Y", true));
 
+        //вариант хранения отсортированных не уникальных значений
+        TreeSet<String> treeSet2 = new TreeSet<>((o1, o2) -> o1.compareTo(o2) == 0 ? 1 : o1.compareTo(o2) );
+        treeSet2.addAll(list);
+        treeSet2.add("Y-");
+        System.out.println(treeSet2);
+
+        enumSetExample();
+
+    }
+
+    private static void enumSetExample() {
+        System.out.println("----enumSetExample------");
         EnumSet<Country> asiaCountries = EnumSet.of(ARMENIA, INDIA, KAZAKHSTAN);
         String nameCountry = "Belarus";
         Country current = Country.valueOf(nameCountry.toUpperCase());
@@ -63,11 +80,20 @@ public class SetTest {
             System.out.println(current + " is not in Asia");
         }
 
-        //вариант хранения отсортированных не уникальных значений
-        TreeSet<String> treeSet2 = new TreeSet<>((o1, o2) -> o1.compareTo(o2) == 0 ? 1 : o1.compareTo(o2) );
-        treeSet2.addAll(list);
-        treeSet2.add("Y-");
-        System.out.println(treeSet2);
+        EnumSet<Country> emptySet = EnumSet.noneOf(Country.class);
+        System.out.println("emptySet: "+ emptySet.size());
+
+        EnumSet<Country> setFromCollect = EnumSet.copyOf(Arrays.asList(ARMENIA, INDIA));
+        System.out.println(setFromCollect);
+
+        EnumSet<Country> setComplementOf = EnumSet.complementOf(setFromCollect);
+        System.out.println(setComplementOf);
+
+        EnumSet<Country> setAllOf = EnumSet.allOf(Country.class);
+        System.out.println(setAllOf);
+
+        EnumSet<Country> setRange = EnumSet.range(BELARUS, POLAND);
+        System.out.println(setRange);
 
     }
 
