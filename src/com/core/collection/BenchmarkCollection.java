@@ -1,4 +1,4 @@
-package com.core.collection.list;
+package com.core.collection;
 
 import java.util.*;
 
@@ -8,8 +8,12 @@ import java.util.*;
  * <p> get(index)	        O(1)	    O(n)
  * <p> add(E)	            O(n)	    O(1)        - на больших списках Arraylist быстрее
  * <p> add(E, index)	    O(n)	    O(n)        - LinkedList значительно быстрее
- * <p> remove(index)	    O(n)	    O(n)        - LinkedList быстрее
- * <p> Iterator.remove()	O(n)	    O(1)        - LinkedList значительно быстрее
+ * <p> remove(index)	    O(n)	    O(n)        - LinkedList быстрее (из середины)
+ * <p> Iterator.remove()	O(n)	    O(1)        - LinkedList значительно быстрее (из середины)
+ *
+ * <p> LinkedList vs HashSet
+ * <p> встввка в середину быстрее HashSet
+ * <p> Удвление из середины итератором быстрее LinkedList
  * <p>
  */
 public class BenchmarkCollection {

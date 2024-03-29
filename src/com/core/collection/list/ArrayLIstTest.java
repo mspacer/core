@@ -1,5 +1,7 @@
 package com.core.collection.list;
 
+import com.core.collection.map.WeakHashMapTest;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -60,8 +62,11 @@ public class ArrayLIstTest {
         list1.add(new Data(19));
         list1.add(new Data(20));
         list1.add(new Data(21));
+        list1.add(new Data(22));
         //list1.add(null); разрешается вставка null
         //list1.add(null);
+        list1.removeIf(data -> data.pos == 22);
+
         System.out.println(list1);
 
         System.out.println("forEach");

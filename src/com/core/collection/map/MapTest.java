@@ -1,5 +1,7 @@
 package com.core.collection.map;
 
+import java.util.*;
+
 /**
  * <p> Карта отображений — это объект, который хранит пару «ключ–значение».
  * <p> Уникальность объектов-ключей должна обеспечиваться переопределением методов hashCode() и equals()
@@ -9,12 +11,12 @@ package com.core.collection.map;
  * <p> Map<K, V> — отображает уникальные ключи и значения;
  * <p> Map.Entry<K, V> — описывает пару «ключ–значение»;
  * <p> SortedMap<K, V> — содержит отсортированные ключи и значения;
- * <p> NavigableMap<K, V> — добавляет новые возможности навигации и поиска по ключу.
+ * <p> NavigableMap<K, V> — расширяет SortedMap добавляет новые возможности навигации и поиска по ключу.
  *
  * <p> Классы карт отображений:
  * <p> AbstractMap<K, V> — реализует интерфейс Map<K, V>, является суперклассом для всех перечисленных карт отображений;
  * <p> HashMap<K, V> — использует хэш-таблицу для работы с ключами;
- * <p> TreeMap<K, V> — использует дерево, где ключи расположены в виде дерева поиска в определенном порядке;
+ * <p> TreeMap<K, V> — реализует NavigableMap. Использует дерево, где ключи расположены в виде дерева поиска в определенном порядке;
  * <p> WeakHashMap<K, V> — позволяет механизму сборки мусора удалять из карты значения по ключу, ссылка на который вышла из области видимости приложения;
  * <p> LinkedHashMap<K, V> — образует дважды связанный список ключей. Этот механизм эффективен, только если превышен коэффициент загруженности карты при работе с кэш-памятью и др.
  * <p> IdentityHashMap<K, V> хэш-коды объектов-ключей вычисляются методом System.identityHashCode() по адресу объекта в памяти,
@@ -34,6 +36,9 @@ package com.core.collection.map;
  * <p> V computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) — заменяет значение value в вызывающей
  * карте, если ключ с таким значением существует, если же пары с таким ключом не существует, то вставка пары не производится;
  * <p> void putAll(Map <? extends K, ? extends V> m) — помещает карту m в вызывающую карту;
+ * <p> V merge(K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) - выполяет функцию для найденного значения key.
+ * Есле не найдено, добавляет в карту. Возвращает встевляемое значение.
+ * <p> boolean replace(K key, V oldValue, V newValue) - заменяет значение по ключу новым значением newValue, если сторое равно oldValue
  * <p> V remove(Object key) — удаляет пару «ключ–значение» по ключу key;
  * <p> void clear() — удаляет все пары из вызываемой карты;
  * <p> boolean containsKey(Object key) — возвращает true, если вызывающая карта содержит key как ключ;
@@ -51,6 +56,51 @@ package com.core.collection.map;
  */
 public class MapTest {
     public static void main(String[] args) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1, "One");
+        map.put(999, null);
+        map.putIfAbsent(999, "-1"); //заменит null, т.к. это отсутствующее значение
 
+        Set<Integer> keys = map.keySet();
+        System.out.println("keys: " + keys);
+
+        Collection<String> values = map.values();
+        System.out.println("values: " + values);
+
+        Set<Map.Entry<Integer, String>> entries = map.entrySet();
+        entries.stream()
+                .forEach(value -> System.out.println(value.getKey() + "/" + value.getValue()));
+
+        entries.stream()
+                .filter(entry -> "One".equals(entry.getValue()))
+                .peek(entry -> entry.setValue("One.One"))
+                .forEach(System.out::println);
+
+        map.computeIfAbsent(2, key -> "Two/" + key );
+        System.out.println(map);
+
+        String result = map.merge(1, " merge OK", (s, s2) -> s.concat(s2));
+        System.out.println("result: " + result);
+        System.out.println(map);
+
+        boolean isReplace = map.replace(999, "-1", "-2");
+        System.out.println("replaced: " + isReplace);
+        System.out.println(map);
+
+        enumMap();
     }
+
+    static void enumMap() {
+        System.out.println("----enumMap-----");
+        EnumMap<Country, Integer> map = new EnumMap<Country, Integer>(Country.class);
+        map.put(Country.POLAND, 8);
+        map.put(Country.UKRAINE, 1);
+        map.put(Country.BELARUS, 0);
+        map.forEach((k, v) -> System.out.println(k + " " + v));
+    }
+
+    enum Country {
+        ARMENIA, BELARUS, INDIA, KAZAKHSTAN, POLAND, UKRAINE
+    }
+
 }

@@ -1,11 +1,13 @@
-package com.core.collection.list;
+package com.core.collection;
 
 import java.util.*;
 
 /**
+ * <p> Collection - Базовый интерфейс. Наследники-интерфейсы: Set, List, Queue (Deque)
+ * <p> Map - отдельная базовая коллекция</p>
  * <p> Доступ по индексу (get(i)) есть только у List
  */
-public class CollectionTest {
+public class CollectionsTest {
     public static void main(String[] args) {
         final List<String> bonds = Arrays.asList("BOND_GOS_REG_MAIN", "BOND_GOS_REG_ADD", "BOND_ID_MAIN", "BOND_ID_ADD");
         final List<String> programs = Collections.singletonList("BOND_PROG");
