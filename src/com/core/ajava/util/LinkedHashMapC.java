@@ -26,7 +26,14 @@
 package com.core.ajava.util;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -531,7 +538,7 @@ public class LinkedHashMapC<K,V>
         return ks;
     }
 
-    final class LinkedKeySet extends AbstractSet<K> {
+    final class LinkedKeySet extends AbstractSetC<K> {
         public final int size()                 { return size; }
         public final void clear()               { LinkedHashMapC.this.clear(); }
         public final Iterator<K> iterator() {
@@ -584,7 +591,7 @@ public class LinkedHashMapC<K,V>
         return vs;
     }
 
-    final class LinkedValues extends AbstractCollection<V> {
+    final class LinkedValues extends AbstractCollectionC<V> {
         public final int size()                 { return size; }
         public final void clear()               { LinkedHashMapC.this.clear(); }
         public final Iterator<V> iterator() {
@@ -630,7 +637,7 @@ public class LinkedHashMapC<K,V>
         return (es = entrySet) == null ? (entrySet = new LinkedEntrySet()) : es;
     }
 
-    final class LinkedEntrySet extends AbstractSet<Map.Entry<K,V>> {
+    final class LinkedEntrySet extends AbstractSetC<Map.Entry<K,V>> {
         public final int size()                 { return size; }
         public final void clear()               { LinkedHashMapC.this.clear(); }
         public final Iterator<Map.Entry<K,V>> iterator() {

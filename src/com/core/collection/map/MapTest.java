@@ -15,10 +15,14 @@ import java.util.*;
  *
  * <p> Классы карт отображений:
  * <p> AbstractMap<K, V> — реализует интерфейс Map<K, V>, является суперклассом для всех перечисленных карт отображений;
- * <p> HashMap<K, V> — использует хэш-таблицу для работы с ключами;
+ * <p> HashMap<K, V> — использует хэш-таблицу для работы с ключами - Node<K,V>[] table
  * <p> TreeMap<K, V> — реализует NavigableMap. Использует дерево, где ключи расположены в виде дерева поиска в определенном порядке;
+ * Красно-черное дерево Entry<K,V> root
  * <p> WeakHashMap<K, V> — позволяет механизму сборки мусора удалять из карты значения по ключу, ссылка на который вышла из области видимости приложения;
- * <p> LinkedHashMap<K, V> — образует дважды связанный список ключей. Этот механизм эффективен, только если превышен коэффициент загруженности карты при работе с кэш-памятью и др.
+ * <p> LinkedHashMap<K, V> — образует дважды связанный список ключей. LinkedHashMap.Entry<K,V> head, tail
+ * Этот механизм эффективен, только если превышен коэффициент загруженности карты при работе с кэш-памятью и др.
+ * accessOrder - если свойство true, элемент возвращаемый get будет помещен в конец. Может быть установлен только вызовом
+ * конструктора LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)
  * <p> IdentityHashMap<K, V> хэш-коды объектов-ключей вычисляются методом System.identityHashCode() по адресу объекта в памяти,
  * в отличие от обычного значения hashCode(), вычисляемого сугубо по содержимому самого объекта.
  * <p> EnumMap<K extends Enum<K>, V> ключи являются типом Enum
@@ -51,15 +55,27 @@ import java.util.*;
  * <p> void forEach(BiConsumer<? super K, ? super V> action) — выполняет действие над каждым элементом Map.
  * <p> В коллекциях, возвращаемых тремя последними методами, можно только удалять элементы, добавлять нельзя.
  * Данное ограничение обуславливается параметризацией возвращаемого методами значения.
- * <p>
+ * <p>Элемент по ключу null всегда вставляется в нулевую индекс таблицы
  * <p>
  */
 public class MapTest {
     public static void main(String[] args) {
+        hashMap();
+        //linkedHashMap();
+        //enumMap();
+
+    }
+
+    private static void hashMap() {
+        System.out.println("---hashMap---");
         HashMap<Integer, String> map = new HashMap<>();
         map.put(1, "One");
+        map.put(4, "Four");
+        map.put(3, "Three");
         map.put(999, null);
         map.putIfAbsent(999, "-1"); //заменит null, т.к. это отсутствующее значение
+        map.put(null, "NULL");
+        map.put(null, "NULL-1");
 
         Set<Integer> keys = map.keySet();
         System.out.println("keys: " + keys);
@@ -87,7 +103,27 @@ public class MapTest {
         System.out.println("replaced: " + isReplace);
         System.out.println(map);
 
-        enumMap();
+        System.out.println("null:" + map.get(null));
+    }
+
+    private static void linkedHashMap() {
+        System.out.println("----linkedHashMap---");
+        LinkedHashMap<Integer, String> lMap = new LinkedHashMap<>(10, 0.75f, true);
+        lMap.put(3, "Three");
+        lMap.put(5, "Five");
+        lMap.put(1, "One");
+        lMap.put(6, "Six");
+        lMap.put(9, "Nine");
+        lMap.put(2, "Two");
+
+        System.out.println(lMap);
+
+        System.out.println(lMap.get(3));
+       // System.out.println(lMap.get(3));
+       // System.out.println(lMap.get(3));
+        lMap.put(7, "Seven");
+
+        lMap.forEach((k, v) -> System.out.println(k + "/" + v));
     }
 
     static void enumMap() {
