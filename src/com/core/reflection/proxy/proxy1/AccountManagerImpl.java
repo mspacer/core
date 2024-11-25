@@ -1,4 +1,4 @@
-package com.core.reflection.proxy1;
+package com.core.reflection.proxy.proxy1;
 
 public class AccountManagerImpl implements AccountManager {
 

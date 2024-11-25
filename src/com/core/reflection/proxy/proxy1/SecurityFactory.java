@@ -1,4 +1,4 @@
-package com.core.reflection.proxy1;
+package com.core.reflection.proxy.proxy1;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
