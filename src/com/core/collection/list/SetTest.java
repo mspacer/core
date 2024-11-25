@@ -12,25 +12,19 @@ import static com.core.collection.list.SetTest.Country.*;
  *
  * <p> TreeSet наследует AbstractSet, реализует NavigableSet. Элементы храняться в NavigableMap<E,Object> m, по сути TreeMap
  * <p> Элементы должны реализовывать Comparable. При добавлении объекта в дерево он сразу же размещается в необходимую
- * позицию с учетом сортировки. Для хранения объектов использует бинарное (красно-черное) дерево. Используется TreeMap где элемент является ключом.
- * Не допускает дубликатов.
+ * позицию с учетом сортировки. Для хранения объектов использует бинарное (красно-черное) дерево. Используется TreeMap, где элемент является ключом.
+ * Не допускает дубликатов и Null-элементов.
  * Обработка операций удаления и вставки объектов происходит несколько медленнее, чем в хэшмножествах, где при любом числе элементов время этих операций постоянно.
  * <p> Конструкторы
  * <p> TreeSet()
  * <p> TreeSet(Collection <? extends E> c)
  * <p> TreeSet(Comparator <? super E> c)
  * <p> TreeSet(SortedSet <E> s)
- * <p> Методы
- * <p> headSet(o)/headSet(E toElement, boolean inclusive) — возвращает представление (класс SortedSet) части этого набора, элементы которого строго меньше объекта o.
- * Элемент может быть произвольным, и не быть в множестве.
- * <p> subSet(j, k)/subSet(E fromElement, boolean fromInclusive, E toElement,   boolean toInclusive) —
- * возвращает представление (класс SortedSet) части набора, элементы которого расположены от объекта j , включая объект k.
- * <p> tailSet(o)/tailSet(E fromElement, boolean inclusive) — возвращает представление (класс SortedSet) части набора, элементы которого не меньше объекта о .
  *
  * <p> HashSet наследует AbstractSet, реализует Set. Использует хэш-таблицу для хранения коллекции. Не является сортированным.
  * Может хранить NULL – значения. Данные хранятся в HashMap как ключи.
  *
- * <p> LinkedHashSet разширяет HashSet, реализует Set, не добавляя никаких новых методов. LinkedHashSet поддерживает связный список элементов набора в том порядке,
+ * <p> LinkedHashSet расширяет HashSet, реализует Set, не добавляя никаких новых методов. LinkedHashSet поддерживает связный список элементов набора в том порядке,
  * в котором они вставлялись. Это позволяет организовать упорядоченную итерацию вставки в набор.
  * Но это приводит к тому что класс LinkedHashSet выполняет операции дольше чем класс HashSet. Данные хранятся в LinkedHashMap как ключи.
  *
@@ -50,7 +44,7 @@ public class SetTest {
         // System.out.println(list);
         TreeSet<String> treeSet = new TreeSet<>(list);
         treeSet.add("Y-");
-        //treeSet.add(null);
+        //treeSet.add(null); NullPointerException
         System.out.println(treeSet);
 
         System.out.println("1) " + treeSet.headSet("434"));

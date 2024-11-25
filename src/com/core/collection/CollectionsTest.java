@@ -3,9 +3,28 @@ package com.core.collection;
 import java.util.*;
 
 /**
- * <p> Collection - Базовый интерфейс. Наследники-интерфейсы: Set, List, Queue (Deque)
- * <p> Map - отдельная базовая коллекция</p>
- * <p> Доступ по индексу (get(i)) есть только у List
+ * <p> Collections - утилитный класс. Методы:
+ * <p> addAll(colls, e1, e2, e3, ..)  Добавляет в коллекцию colls элементы e1, e2, e3,...
+ * <p> Queue<T> asLifoQueue(Deque<T> deque) - создает очередь по типу LIFO (см ArrayDequeTest)
+ * <p> fill(list, obj) Заменяет в переданном списке все элементы на obj
+ * <p> nCopies(n, obj) Возвращает список, состоящий из n копий объекта obj
+ * <p> replaceAll(list, oldVal, newVal) Заменяет в списке list все значения oldVal на newVal
+ * <p> copy(dest, src) Копирует все элементы из списка src в список dest
+ * <p> reverse(list) Разворачивает список задом наперед
+ * <p> sort(list) Сортирует список в порядке возрастания
+ * <p> sort(List<T> list, Comparator<? super T> c) — сортировка списка естественным порядком и с использованием Comparable или Comparator соответственно;
+ * <p> rotate(list, n) Циклично сдвигает элементы списка list на n элементов
+ * <p> shuffle(list) Случайно перемешивает элементы списка
+ * <p> void swap(List<?> list, int i, int j) — меняет местами элементы списка, стоящие на заданных позициях;
+ * <p> min(colls) Находит минимальный элемент коллекции colls
+ * <p> max(colls) Находит максимальный элемент коллекции colls
+ * <p> frequency(colls, obj) Определяет, сколько раз элемент obj встречается в коллекции colls
+ * <p> binarySearch(list, key) Ищет элемент key в отсортированном списке, возвращает индекс.
+ * <p> disjoint(colls1, colls2) Возвращает true, если у коллекций нет общих элементов
+ * <p> <T> List <T> emptyList(), <K, V> Map <K, V> emptyMap(), <T> Set <T> emptySet() — возвращают пустой список, карту отображения и множество соответственно;
+ * <p> singleton(T o), singletonList(T o), singletonMap(K key, V value) — создают множество, список и карту отображения, позволяющие добавлять только один элемент;
+ * <p> <T> List<T> unmodifiableList(List<? extends T> list) — возвращает ссылку на список с запрещением его модификации. Аналогичные методы есть для всех коллекций.
+ * <p>
  */
 public class CollectionsTest {
     public static void main(String[] args) {
@@ -28,8 +47,13 @@ public class CollectionsTest {
         }
         System.out.println(annulNums);
 
-        List<String> annulNums2 = new ArrayList();
-        // annulNums2.addAll(Collections.singletonList(nums));
+        List<String> unmodifiableList = Collections.unmodifiableList(annulNums);
+        //unmodifiableList.add("unmodifiableList"); //UnsupportedOperationException
+
+        List<String> immutableList = Collections.singletonList("One");
+        System.out.println("immutableList: " + immutableList.getClass());
+        //immutableList.add("Two"); //UnsupportedOperationException
+        System.out.println("immutableList: " + immutableList);
 
         System.out.println("Search");
         System.out.println(Collections.binarySearch(bonds, "BOND_ID_MAIN"));

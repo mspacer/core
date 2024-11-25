@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
+/**
+ * <p>Arrays содержит свою реализации ArrayList. Не работает удаление через итеротор</p>
+ */
 public class ArraysTest {
     public static void main(String[] args) {
         Object[] rowData = Arrays.asList(

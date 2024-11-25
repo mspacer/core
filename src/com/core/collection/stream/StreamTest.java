@@ -1,5 +1,6 @@
 package com.core.collection.stream;
 
+import com.bean.Order;
 import com.core.collection.list.ArrayLIstTest;
 
 import java.util.ArrayList;
@@ -19,11 +20,11 @@ import java.util.stream.Stream;
  * <p>Комбинации операций формируют Пайплайн (Pipeline) - последовательность операций в потоке, применяемых к данным
  * <p>Все промежуточные операции выполняются только при вызове терминальной операции, которая запускает общую цепочку обработки.
  * <p>Промежуточные операции делятся на Stateless (без состояния) и Statefull (сохраняющие состояние) операции.
- *  * <p>Stateless операции такие как map() и filter(), обрабатывают каждый элемент потока независимо от других.
+ * * <p>Stateless операции такие как map() и filter(), обрабатывают каждый элемент потока независимо от других.
  * Они не требуют информации о других элементах для своей работы, что делает их идеально подходящими для параллельной обработки.
- *  * <p>Сохраняющие состояние (stateful), такие как sorted(), distinct() или limit(), требуют знания о других элементах для своей работы.
+ * * <p>Сохраняющие состояние (stateful), такие как sorted(), distinct() или limit(), требуют знания о других элементах для своей работы.
  * Это означает, что им приходится учитывать все (или часть) элементы в потоке перед выдачей какого-либо результата.
- *  * <p>Если ваш пайплайн содержит только операции без состояния, то он может быть обработан "в один проход".
+ * * <p>Если ваш пайплайн содержит только операции без состояния, то он может быть обработан "в один проход".
  * Если же он содержит операции с состоянием, то пайплайн разбивается на секции, где каждая секция заканчивается операцией с состоянием.
  *
  * <p>При выполнении Stream исходные данные не изменяются. В результате своей работы Stream создает новую структуру данных.
@@ -40,52 +41,52 @@ import java.util.stream.Stream;
  *
  * <p>Промежуточные операции
  * <p>filter - отработает как фильтр, вернет значения, которые подходят под заданное условие
- *      <pre>collection.stream().filter(«e22»::equals).count()</pre>
+ * <pre>collection.stream().filter(«e22»::equals).count()</pre>
  * <p>sorted	отсортирует элементы в естественном порядке; можно использовать Comparator
- *      <pre>collection.stream().sorted().collect(Collectors.toList())</pre>
+ * <pre>collection.stream().sorted().collect(Collectors.toList())</pre>
  * <p>limit	лимитирует вывод по тому, количеству, которое вы укажете
- *      <pre>collection.stream().limit(10).collect(Collectors.toList())</pre>
+ * <pre>collection.stream().limit(10).collect(Collectors.toList())</pre>
  * <p>skip	пропустит указанное вами количество элементов
- *      <pre>collection.stream().skip(3).findFirst().orElse("4")</pre>
+ * <pre>collection.stream().skip(3).findFirst().orElse("4")</pre>
  * <p>distinct	найдет и уберет элементы, которые повторяются; вернет элементы без повторов
- *      <pre>collection.stream().distinct().collect(Collectors.toList())</pre>
+ * <pre>collection.stream().distinct().collect(Collectors.toList())</pre>
  * <p>peek	выполнить действие над каждым элементом элементов, вернет стрим с исходными элементами
- *      <pre>collection.stream().map(String::toLowerCase).peek((e) -> System.out.print("," + e)). collect(Collectors.toList())</pre>
+ * <pre>collection.stream().map(String::toLowerCase).peek((e) -> System.out.print("," + e)). collect(Collectors.toList())</pre>
  * <p>map	выполнит действия над каждым элементом; вернет элементы с результатами функций
- *      <pre>Stream.of("3", "4", "5").map(Integer::parseInt).map(x -> x + 10).forEach(System.out::println);</pre>
+ * <pre>Stream.of("3", "4", "5").map(Integer::parseInt).map(x -> x + 10).forEach(System.out::println);</pre>
  * <p>mapToInt, mapToDouble, mapToLong	Сработает как map, только вернет числовой stream
- *      <pre>collection.stream().mapToInt((s) -> Integer.parseInt(s)).toArray()</pre>
+ * <pre>collection.stream().mapToInt((s) -> Integer.parseInt(s)).toArray()</pre>
  * <p>flatMap, flatMapToInt, flatMapToDouble, flatMapToLong	преобразовывает один объект, как правило составной, в объект более простой структуры,
  * например, массив в строку, список в объект, список списков в один список:
- *      <pre>collection.stream().flatMap((p) -> Arrays.stream(Arrays.asList(p.split("\\s+")).toArray())).collect(Collectors.toList()); </pre>
+ * <pre>collection.stream().flatMap((p) -> Arrays.stream(Arrays.asList(p.split("\\s+")).toArray())).collect(Collectors.toList()); </pre>
  *
  * <p>Терминальные
  * <p>findFirst	вернет элемент, соответствующий условию, который стоит первым
- *      <pre>collection.stream().findFirst().orElse("10")</pre>
+ * <pre>collection.stream().findFirst().orElse("10")</pre>
  * <p>findAny	вернет любой элемент
- *      <pre>collection.stream().findAny().orElse("10")</pre>
+ * <pre>collection.stream().findAny().orElse("10")</pre>
  * <p>collect	соберет результаты обработки в коллекции и не только
- *      <pre>collection.stream().filter((s) -> s.contains("10")).collect(Collectors.toList())</pre>
+ * <pre>collection.stream().filter((s) -> s.contains("10")).collect(Collectors.toList())</pre>
  * <p>count	посчитает и выведет, сколько элементов, соответствующих условию
- *      <pre>collection.stream().filter("f5"::equals).count()</pre>
+ * <pre>collection.stream().filter("f5"::equals).count()</pre>
  * <p>anyMatch	True, когда хоть один элемент соответствует условиям
- *      <pre>collection.stream().anyMatch("f5"::equals)</pre>
+ * <pre>collection.stream().anyMatch("f5"::equals)</pre>
  * <p>noneMatch	True, когда ни один элемент не соответствует условиям
- *      <pre>collection.stream().noneMatch("b6"::equals)</pre>
+ * <pre>collection.stream().noneMatch("b6"::equals)</pre>
  * <p>allMatch	True, когда все элементы соответствуют условиям
- *      <pre>collection.stream().allMatch((s) -> s.contains("8"))</pre>
+ * <pre>collection.stream().allMatch((s) -> s.contains("8"))</pre>
  * <p>min	найдет самый маленький элемент, используя переданный сравнитель
- *      <pre>collection.stream().min(String::compareTo).get()</pre>
+ * <pre>collection.stream().min(String::compareTo).get()</pre>
  * <p>max	найдет самый большой элемент, используя переданный сравнитель
- *      <pre>collection.stream().max(String::compareTo).get()</pre>
+ * <pre>collection.stream().max(String::compareTo).get()</pre>
  * <p>forEach	применит функцию ко всем элементам, но порядок выполнения гарантировать не может
- *      <pre>set.stream().forEach((p) -> p.append("_2"));</pre>
+ * <pre>set.stream().forEach((p) -> p.append("_2"));</pre>
  * <p>forEachOrdered	применит функцию ко всем элементам по очереди, порядок выполнения гарантировать может
- *      <pre>list.stream().forEachOrdered((p) -> p.append("_nv"));</pre>
+ * <pre>list.stream().forEachOrdered((p) -> p.append("_nv"));</pre>
  * <p>toArray	приведет значения стрима к массиву
- *      <pre>collection.stream().map(String::toLowerCase).toArray(String[]::new);</pre>
+ * <pre>collection.stream().map(String::toLowerCase).toArray(String[]::new);</pre>
  * <p>reduce	преобразует все элементы в один объект
- *      <pre>collection.stream().reduce((c1, c2) -> c1 + c2).orElse(0)</pre>
+ * <pre>collection.stream().reduce((c1, c2) -> c1 + c2).orElse(0)</pre>
  *
  * <p>Метод collect позволяет гибко управлять преобразованием значений в разные типы: коллекции, массивы, map.
  * Делается это благодаря статистическим методам Collectors.
@@ -121,7 +122,7 @@ public class StreamTest {
                     return s1.toUpperCase();
                 })
                 .peek(s -> s += "peek_")
-                .peek(s -> System.out.println("peek: " + s ))
+                .peek(s -> System.out.println("peek: " + s))
                 //.sorted()
                 .forEach(x -> {
                     System.out.println("forEach: " + x);
@@ -141,6 +142,40 @@ public class StreamTest {
         list1.add(new Data(11));
         list1.add(new Data(12));
         list1.add(new Data(13));
+        list1.add(new Data(13));
+
+        System.out.println("-----reduce------");
+        Data reduce = list1.stream()
+                .reduce(new Data(100), (data, data2) -> new Data(data.pos + data2.pos))/*.get()*/;
+        System.out.println("reduce:" + reduce);
+
+        List<Order> orders = Arrays.asList(new Order(1, 50, "one"),
+                new Order(5, 70, "two"),
+                new Order(7, 70, "three"));
+        Order order = orders.stream()
+                .reduce(new Order(4, 0, "base"), (p1, p2) -> {
+                            System.out.println(p1);
+                            System.out.println(p2);
+                            return new Order(p1.order, p1.amount += p2.amount, p1.about + " " + p2.about);
+                        }
+                );
+        System.out.println("order:" + order);
+
+        System.out.print("order2: ");
+        orders.stream()
+                .reduce((p1, p2) -> p1.amount > p2.amount ? p1 : p2)
+                .ifPresent(System.out::println);
+        System.out.println("-----------");
+
+        List<Order> items = Arrays.asList(new Order(1, 50, "Jeans"),
+                new Order(5, 70, "Socks"),
+                new Order(7, 70, "Jacket"));
+        double value = items.stream()
+                .filter(s -> s.about.endsWith("s"))
+                .mapToDouble(Order::getAmount)
+                .average()
+                .getAsDouble();
+        System.out.println("average: " + value);
 
         list1.stream()
                 .forEach(data -> data.pos += 100);
@@ -173,6 +208,13 @@ public class StreamTest {
         System.out.println();
 
         collectorsExamples();
+
+        List<Integer> integers = Arrays.asList(1, 2, 3, 1, 7);
+        boolean res = integers.stream()
+                //.anyMatch(i -> i == 2);
+                .findFirst().isPresent();
+        System.out.println("res: " + res);
+
     }
 
     private static void collectorsExamples() {
@@ -191,19 +233,30 @@ public class StreamTest {
                 .collect(Collectors.mapping(s -> (int) s.charAt(0),
                         Collectors.maxBy(Integer::compareTo)))
                 .orElse(-1);
-        System.out.println(max + "/" + (char)max);
+        System.out.println(max + "/" + (char) max);
 
         int length = strings.stream()
                 .collect(Collectors.summingInt(String::length));
         System.out.println(length);
 
         int sumCodeFirstChars = strings.stream()
-                .map(s -> (int)s.charAt(0))
+                .map(s -> (int) s.charAt(0))
                 .collect(Collectors.reducing(0, (a, b) -> a + b));
         System.out.println(sumCodeFirstChars);
         int otherLength = strings.stream()
-                .collect(Collectors.reducing(0, o -> o.length() , (a, b) -> a + b));
+                .collect(Collectors.reducing(0, o -> o.length(), (a, b) -> a + b));
         System.out.println(otherLength);
+
+        ArrayList<Data> list1 = new ArrayList<>();
+        list1.add(new Data(11));
+        list1.add(new Data(12));
+        list1.add(new Data(13));
+        list1.add(new Data(13));
+        System.out.println("foreach after collect: ");
+        list1.stream()
+                .collect(Collectors.groupingBy(Data::getPos))
+                .forEach((source, r) -> System.out.print(source + " "));
+        System.out.println("-----------");
 
     }
 
@@ -214,6 +267,10 @@ public class StreamTest {
             this.pos = pos;
         }
 
+        public int getPos() {
+            return pos;
+        }
+
         @Override
         public String toString() {
             return "Data{" +
@@ -221,4 +278,5 @@ public class StreamTest {
                     '}';
         }
     }
+
 }

@@ -104,6 +104,15 @@ public class MapTest {
         System.out.println(map);
 
         System.out.println("null:" + map.get(null));
+
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.compute("y", (k, v) -> v==null ? 1 : 0);
+        map1.compute("z", (k, v) -> v==null ? 2 : 0);
+        map1.computeIfPresent("z", (k, v) -> v!=null ? 3 : 0);
+        map1.computeIfAbsent("y", v -> v!=null ? 4 : 0);
+        System.out.println("map1: " + map1.values());
+
+        enumMap();
     }
 
     private static void linkedHashMap() {

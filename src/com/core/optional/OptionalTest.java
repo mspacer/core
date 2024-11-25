@@ -18,9 +18,10 @@ public class OptionalTest {
         orders.add(new Order(2, "e"));
 
         Optional<Order> optionalOrder = findById(orders, 2);
-        if (optionalOrder.isPresent()) {
+        /*if (optionalOrder.isPresent()) {
             System.out.println(optionalOrder.get());
-        }
+        }*/
+        optionalOrder.ifPresent(System.out::println);
 
         Optional<Order> optionalOrder2 = findById2(orders, 22);
         System.out.println(optionalOrder2.isPresent());
@@ -33,6 +34,15 @@ public class OptionalTest {
         testOfNull(null);
 
        // OptionalInt
+
+        Order order22 = findById(orders, 22).orElse(new Order(22, "new 22"));
+        System.out.println(order22);
+        Optional<Order> order23 = findById(orders, 23).map(order -> { order.about += " ??";
+        return order; } );
+        System.out.println("23 is " + (order23.isPresent() ? order23 : false));
+
+        Order order24 = findById(orders, 24).orElseThrow(RuntimeException::new);
+
     }
 
     public static Optional<Order> findById(List<Order> orders, int id) {

@@ -21,6 +21,7 @@ public class BenchmarkCollection {
         //arrayList_LinkedList();
         //arrayList_HashSet();
         linkedList_HashSet();
+        linkedList_HashMap();
 
     }
 
@@ -76,6 +77,15 @@ public class BenchmarkCollection {
 
         before = System.nanoTime();
         linkedList.get(250000);
+        System.out.println(System.nanoTime() - before);
+
+        System.out.println("--get(obj)--");
+        before = System.nanoTime();
+        arrayList.get(arrayList.indexOf(250000));
+        System.out.println(System.nanoTime() - before);
+
+        before = System.nanoTime();
+        linkedList.get(linkedList.indexOf(250000));
         System.out.println(System.nanoTime() - before);
 
         System.out.println("--remove(i)--");
@@ -211,8 +221,23 @@ public class BenchmarkCollection {
         }
         System.out.println(System.nanoTime() - before);
 
-        System.out.println("--remove iterator--");
+        System.out.println("--get(Obj)--");
+        before = System.nanoTime();
+        linkedList.get(linkedList.indexOf(250000));
+        System.out.println(System.nanoTime() - before);
+
         Iterator<Integer> lIterator = linkedList.iterator();
+        before = System.nanoTime();
+        while (lIterator.hasNext()) {
+            Integer nextInteger  = lIterator.next();
+            if (nextInteger == 250000 ) {
+                break;
+            }
+        }
+        System.out.println(System.nanoTime() - before);
+
+        System.out.println("--remove iterator--");
+        lIterator = linkedList.iterator();
         int index = 0;
         before = System.nanoTime();
         while (lIterator.hasNext() && index < 30000) {
@@ -233,6 +258,36 @@ public class BenchmarkCollection {
             }
         }
         System.out.println(System.nanoTime() - before);
+    }
+
+    private static void linkedList_HashMap() {
+        System.out.println("------linkedList_HashMap------");
+        int size = 4000;
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+
+        System.out.println("--add--");
+        long before = System.nanoTime();
+        for (int i = 0; i < size; i++) {
+            linkedList.add(i);
+        }
+        System.out.println(System.nanoTime() - before);
+
+        before = System.nanoTime();
+        for (int i = 0; i < size; i++) {
+            hashMap.put(i, i);
+        }
+        System.out.println(System.nanoTime() - before);
+
+        System.out.println("--get(Obj)--");
+        before = System.nanoTime();
+        linkedList.get(linkedList.indexOf(2500));
+        System.out.println(System.nanoTime() - before);
+
+        before = System.nanoTime();
+        hashMap.get(2500);
+        System.out.println(System.nanoTime() - before);
+
     }
 
 }
