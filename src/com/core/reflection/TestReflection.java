@@ -52,7 +52,8 @@ public class TestReflection {
     private static void constructorInfo() {
         System.out.println("--constructorInfo--");
         Class<MyClass> clazz = MyClass.class;
-        Constructor[] constructors = clazz.getConstructors();
+        //Constructor[] constructors = clazz.getConstructors();
+        Constructor[] constructors = clazz.getDeclaredConstructors();
         for (Constructor constructor : constructors) {
             System.out.print(constructor.getName() + " / ");
             Class[] paramTypes = constructor.getParameterTypes();

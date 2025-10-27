@@ -25,7 +25,6 @@
 
 package com.core.ajava.util;
 
-import sun.misc.SharedSecrets;
 
 import java.io.IOException;
 import java.io.InvalidObjectException;
@@ -1402,7 +1401,7 @@ public class HashMapC<K,V> extends AbstractMapC<K,V>
 
             // Check Map.Entry[].class since it's the nearest public type to
             // what we're actually creating.
-            SharedSecrets.getJavaOISAccess().checkArray(s, Entry[].class, cap);
+            //SharedSecrets.getJavaOISAccess().checkArray(s, Entry[].class, cap);
             @SuppressWarnings({"rawtypes","unchecked"})
             Node<K,V>[] tab = (Node<K,V>[])new Node[cap];
             table = tab;

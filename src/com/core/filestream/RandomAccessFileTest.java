@@ -16,8 +16,11 @@ public class RandomAccessFileTest {
         File f = new File("data/rndAccF.txt");
         f.delete();
         try(RandomAccessFile faf = new RandomAccessFile(f, "rw")) {
+/*
             String lineSeparator = java.security.AccessController.doPrivileged(
                     new sun.security.action.GetPropertyAction("line.separator"));
+*/
+            String lineSeparator = System.getProperty("line.separator");
 
             faf.writeInt(1);
             faf.writeUTF(": Первая строка\n");

@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Person implements Serializable {
     public static String TMP = "tmp";
-    private String name;
+    private String name = "root"; //default
     private int age;
     private double height;
     private boolean married;
-    transient private String password;
+    transient private String password = "123456"; // default
 
     public Person() {
     }
